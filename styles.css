@@ -1,0 +1,67 @@
+html {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body {
+  margin: 0px;
+  height: 100%;
+  padding: 2vh;
+  box-sizing: border-box;
+}
+
+.svg-canvas {
+  flex: 1 1 0px;
+  display: flex;
+  justify-content: center;
+}
+
+#plaintext {
+  font-size: 1.5vh;
+  width: 100%;
+  box-sizing: border-box;
+  word-break: break-all;
+  resize: none;
+  height: 30vh;
+}
+
+svg {
+  width: 100%;
+  z-index: 0;
+  stroke-width: 0.2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.word {
+  display: flex;
+  max-width: 100%;
+}
+
+.svg-line {
+  stroke: black;
+}
+
+.baseline {
+  stroke-linecap: square;
+}
+
+#text-display {
+  padding: 1vh;
+  width: 80vh;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid black;
+}
+
+#text-size {
+  width: 100%;
+  margin-bottom: 1vh;
+}
+
+.unknown-text {
+  width: 100%;
+  text-align: center;
+  overflow-wrap: break-word;
+}
