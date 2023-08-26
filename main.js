@@ -15,6 +15,7 @@ let textDisplay;
 let textSize = 10;
 
 const setTextSize = (val) => {
+  localStorage.setItem("trunic-txt-size", val.toString());
   textSize = val;
   document.querySelector(
     "#text-size-display"
@@ -89,9 +90,100 @@ document.addEventListener("DOMContentLoaded", () => {
     renderText(e.target.value);
   });
 
+  if (localStorage.getItem("trunic-txt-size") != null) {
+    textSize = Number(localStorage.getItem("trunic-txt-size"));
+    document.querySelector("#text-size").value = textSize;
+  }
+
   setTextSize(textSize);
   document.querySelector("#text-size").addEventListener("input", (e) => {
     setTextSize(e.target.value);
+  });
+
+  document.querySelector("#copy-btn").addEventListener("click", () => {
+    const txtDisplayRect = textDisplay.getBoundingClientRect();
+    const imgWidth = 640;
+    const imgHeight = (imgWidth * txtDisplayRect.height) / txtDisplayRect.width;
+    const c = document.createElement("canvas");
+    c.width = imgWidth;
+    c.height = imgHeight;
+    const ctx = c.getContext("2d");
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, imgWidth, imgHeight);
+    const scalingRatio = imgWidth / txtDisplayRect.width;
+
+    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = 2;
+
+    ctx.fillStyle = "#000";
+    ctx.font = "4vh Arial";
+
+    for (const svg of document.querySelectorAll("svg")) {
+      const { x, y, width: w, height: h } = svg.getBoundingClientRect();
+
+      const [mx, my, mw, mh] = [
+        (x - txtDisplayRect.x) * scalingRatio,
+        (y - txtDisplayRect.y) * scalingRatio,
+        w * scalingRatio,
+        h * scalingRatio,
+      ];
+
+      for (const line of svg.querySelectorAll("line")) {
+        ctx.beginPath();
+        ctx.moveTo(
+          mx + (mw * line.x1.baseVal.value) / 4.2,
+          my + (mh * line.y1.baseVal.value) / 7
+        );
+        ctx.lineTo(
+          mx + (mw * line.x2.baseVal.value) / 4.2,
+          my + (mh * line.y2.baseVal.value) / 7
+        );
+        ctx.stroke();
+      }
+
+      for (const circle of svg.querySelectorAll("circle")) {
+        ctx.beginPath();
+        ctx.arc(
+          mx + (mw * circle.cx.baseVal.value) / 4.2,
+          my + (mh * circle.cy.baseVal.value) / 7,
+          (circle.r.baseVal.value * mw) / 4.2,
+          0,
+          2 * Math.PI
+        );
+        ctx.stroke();
+      }
+    }
+
+    for (const span of document
+      .querySelector("#text-display")
+      .querySelectorAll("span")) {
+      if (span.innerText.trim() != "") {
+        const { x, y, width: w, height: h } = span.getBoundingClientRect();
+
+        const [mx, my, mw, mh] = [
+          (x - txtDisplayRect.x) * scalingRatio,
+          (y - txtDisplayRect.y) * scalingRatio,
+          w * scalingRatio,
+          h * scalingRatio,
+        ];
+
+        ctx.fillText(span.innerText, mx, my + (mh * 2) / 3);
+      }
+    }
+
+    c.toBlob((blob) => {
+      navigator.clipboard.write([
+        new ClipboardItem({
+          "image/png": blob,
+        }),
+      ]);
+
+      document.querySelector("#copy-btn").innerText = "Copied!";
+
+      setTimeout(() => {
+        document.querySelector("#copy-btn").innerText = "Copy to clipboard";
+      }, 3000);
+    });
   });
 
   renderText("Tunic Writer");
