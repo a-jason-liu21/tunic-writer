@@ -58,6 +58,7 @@ svg {
   border: 1px solid black;
   overflow-y: scroll;
   margin-bottom: 1vh;
+  align-content: flex-start;
 }
 
 #text-size {
