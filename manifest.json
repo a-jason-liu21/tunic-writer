@@ -1,0 +1,17 @@
+{
+  "lang": "en-us",
+  "name": "Tunic Writer",
+  "short_name": "Tunic Writer",
+  "description": "An app for converting English text into Trunic",
+  "start_url": "/",
+  "background_color": "#ebebeb",
+  "theme_color": "#02a2c2",
+  "orientation": "any",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/icon512.png",
+      "sizes": "512x512"
+    }
+  ]
+}
