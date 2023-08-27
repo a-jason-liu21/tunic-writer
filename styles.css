@@ -28,6 +28,21 @@ body {
   margin-bottom: 1vh;
 }
 
+#text-display-holder {
+  width: 90vw;
+  height: 45vh;
+  border: 1px solid black;
+  overflow-y: scroll;
+  margin-bottom: 1vh;
+}
+
+#text-display {
+  padding: 1vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
 svg {
   width: 100%;
   z-index: 0;
@@ -47,18 +62,6 @@ svg {
 
 .baseline {
   stroke-linecap: square;
-}
-
-#text-display {
-  padding: 1vh;
-  display: flex;
-  width: 90vw;
-  height: 45vh;
-  flex-wrap: wrap;
-  border: 1px solid black;
-  overflow-y: scroll;
-  margin-bottom: 1vh;
-  align-content: flex-start;
 }
 
 #text-size {
