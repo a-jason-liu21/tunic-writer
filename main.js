@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.lineWidth = 2;
 
     ctx.fillStyle = "#000";
-    ctx.font = "4vh Arial";
+    ctx.font = textSize * 0.27 + "vh Arial";
 
     for (const svg of document.querySelectorAll("svg")) {
       const { x, y, width: w, height: h } = svg.getBoundingClientRect();
