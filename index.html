@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Tunic Writer</title>
+    <link href="/manifest.json" rel="manifest" />
     <link href="styles.css" rel="stylesheet" />
     <script src="cmudict-0.7b.js"></script>
     <script src="symbols.js"></script>
@@ -27,5 +29,10 @@
       </div>
       <button id="copy-btn">Copy to clipboard</button>
     </div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js", { scope: "/" });
+      }
+    </script>
   </body>
 </html>
