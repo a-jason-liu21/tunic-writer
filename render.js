@@ -37,12 +37,12 @@ const lineMap = {
   td: ["tb", "mm"],
 };
 
-const renderSVG = (phoneme, maxHeight) => {
+const renderSVG = (phoneme, maxHeight, unit) => {
   const wrapper = document.createElement("div");
   wrapper.classList.add("svg-canvas");
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
-  svg.style.maxHeight = maxHeight + "vh";
+  svg.style.maxHeight = maxHeight + unit;
   wrapper.appendChild(svg);
 
   let lines = [];
